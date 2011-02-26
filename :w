@@ -1,0 +1,29 @@
+#encoding:utf-8
+require 'nokogiri'
+require 'open-uri'
+require 'iconv'
+
+INFO = {}
+a = Time.now
+file = File.new("tete", "w:utf-8")
+doc = Nokogiri::HTML.parse((open("http://www.dianping.com/shop/2015683")),nil, "utf-8")
+#puts doc
+  doc.css(".main").each do |element|
+  #doc.css(".main .section .raw-block .block-inner,.desc-list").each do |element|
+    puts element
+    element.css("dl").each_with_index do |info, index|
+      case info.at_css("dt").content
+      when "商户描述:"
+        INFO[:detail] = info.at_css("dd").content
+        file.puts INFO[:detail]
+      when "推荐菜:"
+        INFO[:recommend] = info.at_css("dd").content
+        file.puts INFO[:recommend]
+      else
+        
+      end
+    end
+  end
+  file.close
+
+puts Time.now - a

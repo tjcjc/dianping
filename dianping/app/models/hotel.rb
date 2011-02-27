@@ -1,4 +1,4 @@
-class Hote
+class Hotel
   include Mongoid::Document
   field :address
   field :telephone
@@ -14,9 +14,10 @@ class Hote
   field :atomosphere
   field :feature
   embeds_many :comments
-  referenced_in :city, :inverse_of => :hotel
-  references_and_referenced_in_many :categories, :inverse_of => :hotels
+  referenced_in :city, :inverse_of => :hotels
+  referenced_in :category, :inverse_of => :hotels
   references_and_referenced_in_many :buses, :inverse_of => :hotels
-  references_and_referenced_in_many :districts, :inverse_of => :hotels
+  referenced_in :district, :inverse_of => :hotels
+  referenced_in :street, :inverse_of => :hotels
   references_and_referenced_in_many :dishes, :inverse_of => :hotels
 end

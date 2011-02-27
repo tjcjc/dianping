@@ -1,7 +1,11 @@
+#encoding:utf-8
+require 'spider_dp'
 class HotelsController < ApplicationController
   # GET /hotels
   # GET /hotels.xml
   def index
+    get_hotels_by_city("http://www.dianping.com/shopall/8/10")
+  #get_hotels_by_cate("http://www.dianping.com/search/category/8/10/r1591g3031", "川菜")
     @hotels = Hotel.all
 
     respond_to do |format|
@@ -13,7 +17,7 @@ class HotelsController < ApplicationController
   # GET /hotels/1
   # GET /hotels/1.xml
   def show
-    @hotel = Hotel.find(params[:id])
+    @hotel = Hotel.find(params[:name])
 
     respond_to do |format|
       format.html # show.html.erb
